@@ -1,0 +1,28 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.showcase {
+    width: calc(100% - 200px);
+    height: 100%;;
+    position: absolute;
+    left: 200px;
+}
+
+.itemlist {
+    width: 200px;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+}
+
+.itemlist:after {
+    content: "";
+    width: 1px;
+    height: 90%;
+    position: absolute;
+    background-color: gray;
+    top: 5%;
+    right: 5px;
+}

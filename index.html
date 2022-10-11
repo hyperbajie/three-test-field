@@ -1,0 +1,33 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="itemlist">
+        <div>
+            <button onclick="setIframeSrc('canvas1')">canvas1</button>
+        </div>
+        <div>
+            <button onclick="setIframeSrc('canvas-line')">canvas2</button>
+        </div>
+    </div>
+    <iframe class="showcase" src="./canvas1.html" frameborder="0"></iframe>
+
+    <script>
+        let iframe = null;
+        function setIframeSrc(name) {
+            if( !iframe ) {
+                iframe = document.querySelector("iframe");
+            }
+            iframe.src = `./${name}.html`;
+        }
+    </script>
+</body>
+
+</html>
