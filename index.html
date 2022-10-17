@@ -10,35 +10,30 @@
 
 <body>
     <div class="itemlist">
-        <div>
-            <button onclick="setIframeSrc('canvas1')">canvas1</button>
-        </div>
-        <div>
-            <button onclick="setIframeSrc('canvas-line')">canvas2</button>
-        </div>
-        <div>
-            <button onclick="setIframeSrc('draw2d')">draw2d</button>
-        </div>
-        <div>
-            <button onclick="setIframeSrc('basic-animation')">basic-animation</button>
-        </div>
-        <div>
-            <button onclick="setIframeSrc('texture-animation')">texture-animation</button>
-        </div>
     </div>
-    <iframe class="showcase" src="./texture-animation.html" frameborder="0"></iframe>
-            <button onclick="setIframeSrc('skinnedmesh')">draw2d</button>
-        </div>
-    </div>
-    <iframe class="showcase" src="./skinnedmesh.html" frameborder="0"></iframe>
+    <iframe class="showcase" src="./blank.html" frameborder="0"></iframe>
 
-    <script>
+    <script type="module">
+        import { Config } from "./index.js";
+        const container = document.querySelector(".itemlist");
+        const fra = document.createDocumentFragment();
+        for(let i = 0 ; i < Config.length ; i ++) {
+            let obj = Config[i];
+            let item = document.createElement("div");
+            item.innerText = obj.name;
+            item.addEventListener("click", function() {
+                setIframeSrc(obj)
+            });
+            item.classList.add("item")
+            fra.appendChild(item);
+        }
+        container.appendChild(fra);
         let iframe = null;
-        function setIframeSrc(name) {
-            if( !iframe ) {
+        function setIframeSrc(obj) {
+            if (!iframe) {
                 iframe = document.querySelector("iframe");
             }
-            iframe.src = `./${name}.html`;
+            iframe.src = obj.path;
         }
     </script>
 </body>
