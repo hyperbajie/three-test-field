@@ -20,15 +20,31 @@ function run() {
     const mesh = new THREE.Mesh(geometry, material)
     scene.add(mesh)
 
+    window.parent.window.mesh = mesh
+
+    const mixer = new THREE.AnimationMixer(mesh)
+
+    const getClip = (scale = [1,1,1]) => {
+        const times = [0,3]
+        const values = [1,1,1, ...scale]
+        const scaleTrack = new THREE.VectorKeyframeTrack("box.scale", times, values)
+        const duration = 1;
+        return new THREE.AnimationClip("boxscale", duration,[scaleTrack]);
+    }
+    const action = mixer.clipAction(getClip([2,2,2]))
+    action.loop = THREE.LoopPingPong
+    action.play()
+
+    const clock = new THREE.Clock()
     window.addEventListener("resize", function() {
         camera.aspect = window.innerWidth / window.innerHeight 
         renderer.setSize(window.innerWidth, window.innerHeight)
-
         camera.updateProjectionMatrix()
     })
 
     function render() {
         requestAnimationFrame(render)
+        mixer.update(clock.getDelta())
         renderer.render(scene, camera)
     }
 
