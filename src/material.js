@@ -13,6 +13,18 @@ function run() {
     camera.position.set(0, 0, 10)
     camera.lookAt(0,0,0)
 
+    const light = new THREE.DirectionalLight(0xff0000, 1)
+    light.position.set(0,0,10)
+    scene.add(light)
+
+    const geometry = new THREE.BoxGeometry(1,1,1)
+    const material = new THREE.MeshLambertMaterial({
+        color: 0x00ff00,
+        emissive: 0x00ff00
+    })
+    const box = new THREE.Mesh(geometry, material)
+    scene.add(box)
+
     window.addEventListener("resize", function() {
         camera.aspect = window.innerWidth / window.innerHeight 
         renderer.setSize(window.innerWidth, window.innerHeight)
@@ -24,9 +36,8 @@ function run() {
         requestAnimationFrame(render)
         renderer.render(scene, camera)
     }
-
-    render()
     window.parent.window.scene = scene
+    render()
 }
 
 run()

@@ -26,5 +26,9 @@ export const Config = [
     {
         name: "scale-animation",
         path: "src/scale-animation.html"
+    },
+    {
+        name: "material",
+        path: "src/material.html"
     }
 ]
