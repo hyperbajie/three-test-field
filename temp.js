@@ -13,12 +13,6 @@ function run() {
     camera.position.set(0, 0, 10)
     camera.lookAt(0,0,0)
 
-    window.addEventListener("resize", function() {
-        camera.aspect = window.innerWidth / window.innerHeight 
-        renderer.setSize(window.innerWidth, window.innerHeight)
-
-        camera.updateProjectionMatrix()
-    })
 
     function render() {
         requestAnimationFrame(render)
@@ -26,6 +20,12 @@ function run() {
     }
 
     render()
+    window.addEventListener("resize", function() {
+        camera.aspect = window.innerWidth / window.innerHeight 
+        renderer.setSize(window.innerWidth, window.innerHeight)
+
+        camera.updateProjectionMatrix()
+    })
     window.parent.window.scene = scene
 }
 

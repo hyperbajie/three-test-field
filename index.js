@@ -30,5 +30,9 @@ export const Config = [
     {
         name: "material",
         path: "src/material.html"
+    },
+    {
+        name: "texture",
+        path: "src/texture.html"
     }
 ]
