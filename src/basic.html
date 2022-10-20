@@ -14,8 +14,11 @@
 </head>
 
 <body>
+    <script type="module">
+        import * as THREE from "../examples/build/three.module.js";
+        import { OrbitControls } from "../examples/jsm/controls/OrbitControls.js";
+        import { GUI } from "../examples/jsm/libs/lil-gui.module.min.js";
 
-    <script>
         let renderer = new THREE.WebGLRenderer({
             anitials: true
         });
@@ -38,6 +41,10 @@
                 color: "pink"
             }
         );
+        let wireframeMaterial = new THREE.MeshPhongMaterial({
+            color: 0xff0000,
+            wireframe: true
+        })
         let transparentMaterial = new THREE.MeshLambertMaterial({
             color: 0xff0000,
             transparent: true,
@@ -47,21 +54,58 @@
             color: 0x0000ff,
             specular: 0x4488ee,
             shininess: 12
-        })
-
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        });
+        const controls = new OrbitControls(camera, renderer.domElement);
         controls.addEventListener("change", render);
-        let mesh = new THREE.Mesh(geo, phongMaterial);
-
+        let mesh = new THREE.Mesh(geo, basicMaterial);
         scene.add(mesh);
 
+        let params = {
+            material: "basic",
+            ambientColor: 0xffffff,
+            materialColor: 0xff0000
+        }
+        let cache = {
+            
+        }
+        const gui = new GUI();
+        const attr = gui.addFolder("attr");
+        const lightFolder = gui.addFolder("light");
+        lightFolder.addColor(params, "ambientColor").name("ambient").onChange(render);
+        lightFolder.addColor(params, "materialColor").name("material").onChange(render);
+
+        attr.add(params, "material", ["basic", "wireframe", "lambert", "phong"]).onChange(render);
+
+
         function render() {
+            if (cache.material != params.material) {
+                cache.material = params.material;
+                if (params.material == "basic") {
+                    mesh.material = basicMaterial;
+                } else if (params.material == "lambert") {
+                    mesh.material = transparentMaterial;
+                } else if (params.material == "phong") {
+                    mesh.material = phongMaterial;
+                } else if( params.material == "wireframe" ) {
+                    mesh.material = wireframeMaterial;
+                }
+            }
+
+            if (cache.ambientColor != params.ambientColor) {
+                cache.ambientColor = params.ambientColor;
+                ambient.color = new THREE.Color(params.ambientColor);
+            }
+
+            if (cache.materialColor != params.materialColor) {
+                cache.materialColor = params.materialColor;
+                mesh.material.color = new THREE.Color(params.materialColor);
+            }
             renderer.render(scene, camera);
         }
 
         render();
         window.parent.window.scene = scene;
-
+        window.parent.window.select = select;
     </script>
 </body>
 
