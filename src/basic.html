@@ -14,9 +14,8 @@
 </head>
 
 <body>
-    <script type="module">
-        import * as THREE from "../node_modules/three/build/three.module.js";
 
+    <script>
         let renderer = new THREE.WebGLRenderer({
             anitials: true
         });
@@ -50,8 +49,8 @@
             shininess: 12
         })
 
-
-
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.addEventListener("change", render);
         let mesh = new THREE.Mesh(geo, phongMaterial);
 
         scene.add(mesh);
