@@ -17,15 +17,6 @@
     left: 0px;
 }
 
-.itemlist:after {
-    content: "";
-    width: 1px;
-    height: 90%;
-    position: absolute;
-    background-color: gray;
-    top: 5%;
-    right: 5px;
-}
 .item {
     cursor: pointer;
     user-select: none;
